@@ -19,7 +19,7 @@ class TelegramBotWebhookView(View):
         updater = get_updater()
 
         updater.dispatcher.process_update(
-            Update.de_json(json.load(request.body), updater.bot)
+            Update.de_json(json.loads(request.body), updater.bot)
         )
 
         return JsonResponse({"ok": "POST request processed"})
