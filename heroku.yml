@@ -1,0 +1,22 @@
+setup:
+  addons:
+    - plan: heroku-redis
+      as: REDIS
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    app: Dockerfile
+release:
+  command:
+    - python3 manage.py migrate && python3 manage.py set_webhooks
+  image: app
+run:
+  web:
+    command:
+      - uwsgi --http 0:$PORT --module app.wsgi --master --processes 1 --threads 1
+    image: app
+  #worker:
+  #  command:
+  #    - celery -A app worker --concurrency=4 -Ofair
+  #  image: app

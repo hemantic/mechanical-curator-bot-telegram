@@ -1,0 +1,1 @@
+Start polling: `docker-compose run web bash` > `python3 manage.py botpolling --username=mechanical_curator_bot`
